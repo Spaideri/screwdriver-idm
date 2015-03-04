@@ -1,4 +1,4 @@
-package org.screwdriver.repository;
+package org.screwdriver.idm.repository;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.screwdriver.config.DataSourceConfig;
-import org.screwdriver.entity.Account;
+import org.screwdriver.idm.config.DataSourceConfig;
+import org.screwdriver.idm.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;

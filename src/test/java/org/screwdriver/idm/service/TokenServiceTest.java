@@ -1,4 +1,4 @@
-package org.screwdriver.service;
+package org.screwdriver.idm.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -7,15 +7,12 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import org.mockito.Mock;
-import org.screwdriver.dto.AccountDTO;
-import org.screwdriver.dto.TokenDTO;
-import org.screwdriver.entity.Account;
+import org.screwdriver.idm.dto.AccountDTO;
+import org.screwdriver.idm.dto.TokenDTO;
 
-import java.security.MessageDigest;
 import java.util.Base64;
 
 

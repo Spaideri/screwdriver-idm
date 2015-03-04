@@ -1,4 +1,4 @@
-package org.screwdriver.entity;
+package org.screwdriver.idm.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

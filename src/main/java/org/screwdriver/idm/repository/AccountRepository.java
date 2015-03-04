@@ -1,8 +1,8 @@
-package org.screwdriver.repository;
+package org.screwdriver.idm.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import org.screwdriver.entity.Account;
+import org.screwdriver.idm.entity.Account;
 
 public interface AccountRepository extends CrudRepository<Account, Long> {
 

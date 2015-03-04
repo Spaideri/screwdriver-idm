@@ -1,4 +1,4 @@
-package org.screwdriver.service;
+package org.screwdriver.idm.service;
 
 
 import org.joda.time.DateTime;

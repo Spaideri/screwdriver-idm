@@ -1,4 +1,4 @@
-package org.screwdriver.config;
+package org.screwdriver.idm.config;
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.googlecode.flyway.core.Flyway;
 
 @Configuration
-@EnableJpaRepositories("org.screwdriver.repository")
+@EnableJpaRepositories("org.screwdriver.idm.repository")
 @PropertySource("classpath:screwdriver.properties")
 @EnableTransactionManagement
 public class DataSourceConfig {
@@ -94,7 +94,7 @@ public class DataSourceConfig {
 
 		entityManagerFactory.setDataSource(dataSource());
 		entityManagerFactory.setJpaVendorAdapter(vendorAdapter);
-		entityManagerFactory.setPackagesToScan("org.screwdriver.entity");
+		entityManagerFactory.setPackagesToScan("org.screwdriver.idm.entity");
 
 		return entityManagerFactory;
 	}

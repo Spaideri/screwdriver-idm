@@ -1,6 +1,6 @@
-package org.screwdriver.controller;
+package org.screwdriver.idm.controller;
 
-import org.screwdriver.service.IAuthenticationService;
+import org.screwdriver.idm.service.IAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

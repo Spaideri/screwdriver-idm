@@ -1,4 +1,4 @@
-package org.screwdriver.service.authentication;
+package org.screwdriver.idm.service.authentication;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

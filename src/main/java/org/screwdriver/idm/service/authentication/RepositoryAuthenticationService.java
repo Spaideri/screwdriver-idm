@@ -1,12 +1,12 @@
-package org.screwdriver.service.authentication;
+package org.screwdriver.idm.service.authentication;
 
 
 import org.dozer.DozerBeanMapper;
-import org.screwdriver.dto.AccountDTO;
-import org.screwdriver.entity.Account;
-import org.screwdriver.repository.AccountRepository;
-import org.screwdriver.service.IAuthenticationService;
-import org.screwdriver.service.TokenService;
+import org.screwdriver.idm.dto.AccountDTO;
+import org.screwdriver.idm.entity.Account;
+import org.screwdriver.idm.repository.AccountRepository;
+import org.screwdriver.idm.service.IAuthenticationService;
+import org.screwdriver.idm.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

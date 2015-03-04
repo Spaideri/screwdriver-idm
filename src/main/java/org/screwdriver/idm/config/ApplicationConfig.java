@@ -1,16 +1,16 @@
-package org.screwdriver.config;
+package org.screwdriver.idm.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.dozer.DozerBeanMapper;
-import org.screwdriver.service.TimeService;
-import org.screwdriver.service.TokenService;
+import org.screwdriver.idm.service.TokenService;
+import org.screwdriver.idm.service.TimeService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages = "org.screwdriver")
+@ComponentScan(basePackages = "org.screwdriver.idm")
 public class ApplicationConfig {
 
     @Value("${token.lifetimeInSeconds}")

@@ -1,4 +1,4 @@
-package org.screwdriver.entity;
+package org.screwdriver.idm.entity;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package org.screwdriver.dto;
+package org.screwdriver.idm.dto;
 
 public class AccountDTO {
 

@@ -1,11 +1,11 @@
-package org.screwdriver.dto;
+package org.screwdriver.idm.dto;
 
 import static org.junit.Assert.assertEquals;
 
 import org.dozer.DozerBeanMapper;
 import org.junit.Before;
 import org.junit.Test;
-import org.screwdriver.entity.Account;
+import org.screwdriver.idm.entity.Account;
 
 public class AccountDTOTest {
 
