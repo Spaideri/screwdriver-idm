@@ -1,3 +1,3 @@
-insert into account (username, password) values ('test1', 'test1');
-insert into account (username, password) values ('test2', 'test2');
-insert into account (username, password) values ('test3', 'test3');
+INSERT INTO account (username, password) VALUES ('test1', 'test1');
+INSERT INTO account (username, password) VALUES ('test2', 'test2');
+INSERT INTO account (username, password) VALUES ('test3', 'test3');
