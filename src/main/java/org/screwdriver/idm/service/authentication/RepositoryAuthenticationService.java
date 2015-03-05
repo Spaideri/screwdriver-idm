@@ -39,4 +39,5 @@ public class RepositoryAuthenticationService implements IAuthenticationService {
         AccountDTO accountDTO = dozerBeanMapper.map(account, AccountDTO.class);
         return tokenService.generateToken(accountDTO);
     }
+
 }

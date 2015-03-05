@@ -17,4 +17,5 @@ public class TimeService {
         DateTime timestamp = new DateTime().plusSeconds(tokenLifetimeInSeconds);
         return timestamp.toDateTimeISO().toString();
     }
+
 }

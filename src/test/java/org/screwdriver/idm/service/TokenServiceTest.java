@@ -1,24 +1,24 @@
 package org.screwdriver.idm.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.mockito.Mock;
 import org.screwdriver.idm.dto.AccountDTO;
 import org.screwdriver.idm.dto.TokenDTO;
+import org.screwdriver.idm.service.authentication.UnauthorizedException;
 
 import java.util.Base64;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.*;
 
 
 public class TokenServiceTest {
 
-    private TokenService tokenService;
+    private ITokenService tokenService;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -33,7 +33,11 @@ public class TokenServiceTest {
 
     private final static String TOKEN_SECRET = "SECRET123XXX";
 
-    private final static String TIMESTAMP = "2015-03-04T21:53:31.123+0200";
+    private final static String TIMESTAMP = "2015-03-05T12:00:00.000Z";
+
+    private final static String TIMESTAMP_IN_FUTURE = "2015-03-05T13:00:00.000Z";
+
+    private final static String TIMESTAMP_IN_PAST = "2015-03-05T11:00:00.000Z";
 
 
     @Before
@@ -55,12 +59,39 @@ public class TokenServiceTest {
         assertEquals(ID, token.getAccount().getId());
         assertEquals(USERNAME, token.getAccount().getUsername());
         assertEquals(TIMESTAMP, token.getExpireTime());
-        assertEquals(getMac(), token.getMac());
+        assertEquals(getMac(TIMESTAMP), token.getMac());
     }
 
-    private String getMac() throws Exception{
+    @Test
+    public void shouldNotThrowExceptionsOnValidToken() throws Exception {
+        String tokenBase64 = generateTokenBase64String(TIMESTAMP_IN_FUTURE, getMac(TIMESTAMP_IN_FUTURE));
+        assertTrue(tokenService.validate(tokenBase64));
+    }
+
+    @Test(expected = UnauthorizedException.class)
+    public void shouldThrowUnauthorizedOnInvalidMac() throws Exception {
+        String tokenBase64 = generateTokenBase64String(TIMESTAMP_IN_FUTURE, getMac(TIMESTAMP));
+        tokenService.validate(tokenBase64);
+    }
+
+    @Test(expected = UnauthorizedException.class)
+    public void shouldThrowUnauthorizedOnExpiredTimeStamp() throws Exception {
+        String tokenBase64 = generateTokenBase64String(TIMESTAMP_IN_PAST, getMac(TIMESTAMP_IN_PAST));
+        tokenService.validate(tokenBase64);
+    }
+
+    private String generateTokenBase64String(String timestamp, String mac) throws Exception {
+        TokenDTO tokenDTO = new TokenDTO();
+        tokenDTO.setAccount(account);
+        tokenDTO.setExpireTime(timestamp);
+        tokenDTO.setMac(mac);
+        String tokenJson = mapper.writeValueAsString(tokenDTO);
+        return new String(Base64.getEncoder().encode(tokenJson.getBytes()));
+    }
+
+    private String getMac(String timeStamp) throws Exception{
         String accountAsString = mapper.writeValueAsString(account);
-        String stringToHash = TOKEN_SECRET+accountAsString+TIMESTAMP;
+        String stringToHash = TOKEN_SECRET+accountAsString+timeStamp;
         return DigestUtils.sha256Hex(stringToHash);
     }
 }
