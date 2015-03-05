@@ -9,6 +9,7 @@ import org.screwdriver.idm.service.IAuthenticationService;
 import org.screwdriver.idm.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RepositoryAuthenticationService implements IAuthenticationService {
@@ -28,6 +29,7 @@ public class RepositoryAuthenticationService implements IAuthenticationService {
 
 
     @Override
+    @Transactional
     public String authenticate(String username, String password) throws Exception {
         Account account = accountRepository.findByUsername(username);
         if(!account.getPassword().equals(password)) {
