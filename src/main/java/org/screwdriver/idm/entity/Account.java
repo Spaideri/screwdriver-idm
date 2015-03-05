@@ -2,11 +2,13 @@ package org.screwdriver.idm.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import java.util.List;
 
 @Entity
 public class Account extends AbstractPersistable<Long> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 	@Column(unique = true)
 	private String username;
@@ -14,19 +16,17 @@ public class Account extends AbstractPersistable<Long> {
 	@Column
 	private String password;
 
-	public Account(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-	}
+    @ManyToMany
+    private List<AccessGroup> accessGroups;
 
-	public Account() {
-	}
+    public Account() {
+    }
 
     private Account(Builder builder) {
         super.setId(builder.id);
         this.username = builder.username;
         this.password = builder.password;
+        this.accessGroups = builder.accessGroups;
     }
 
 	public String getPassword() {
@@ -37,10 +37,15 @@ public class Account extends AbstractPersistable<Long> {
 		return username;
 	}
 
+    public List<AccessGroup> getAccessGroups() {
+        return accessGroups;
+    }
+
     public static class Builder {
         private Long id;
         private String username;
         private String password;
+        private List<AccessGroup> accessGroups;
 
         public Account build(){
             return new Account(this);
@@ -58,6 +63,11 @@ public class Account extends AbstractPersistable<Long> {
 
         public Builder password(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder accessGroups(List<AccessGroup> accessGroups) {
+            this.accessGroups = accessGroups;
             return this;
         }
     }
