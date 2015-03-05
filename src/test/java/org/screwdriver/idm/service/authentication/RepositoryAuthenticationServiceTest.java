@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.screwdriver.idm.dto.AccountDTO;
+import org.screwdriver.idm.dto.LoginCredentialsDTO;
 import org.screwdriver.idm.entity.Account;
 import org.screwdriver.idm.repository.AccountRepository;
 import org.screwdriver.idm.service.TokenService;
@@ -31,6 +32,8 @@ public class RepositoryAuthenticationServiceTest {
 
     private Account accountEntity;
 
+    private LoginCredentialsDTO credentialsDTO;
+
     private final static String USERNAME = "username";
 
     private final static String PASSWORD = "password";
@@ -45,11 +48,12 @@ public class RepositoryAuthenticationServiceTest {
         accountEntity = new Account.Builder().password(PASSWORD).build();
         recordMockLogic();
         authenticationService = new RepositoryAuthenticationService(dozerMapper, accountRepository, tokenService);
+        credentialsDTO = new LoginCredentialsDTO(USERNAME, PASSWORD);
     }
 
     @Test
     public void shouldAuthenticateUser() throws Exception {
-        String token = authenticationService.authenticate(USERNAME, PASSWORD);
+        String token = authenticationService.authenticate(credentialsDTO);
 
         assertEquals(TOKEN, token);
         verify(accountRepository).findByUsername(USERNAME);
@@ -58,7 +62,7 @@ public class RepositoryAuthenticationServiceTest {
 
     @Test(expected = UnauthorizedException.class)
     public void shouldThrowUnauthorizedExceptionOnWrongPassword() throws Exception {
-        authenticationService.authenticate(USERNAME, WRONG_PASSWORD);
+        authenticationService.authenticate(new LoginCredentialsDTO(USERNAME, WRONG_PASSWORD));
     }
 
     private void recordMockLogic() throws Exception {

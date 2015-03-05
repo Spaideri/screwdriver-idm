@@ -3,6 +3,7 @@ package org.screwdriver.idm.service.authentication;
 
 import org.dozer.DozerBeanMapper;
 import org.screwdriver.idm.dto.AccountDTO;
+import org.screwdriver.idm.dto.LoginCredentialsDTO;
 import org.screwdriver.idm.entity.Account;
 import org.screwdriver.idm.repository.AccountRepository;
 import org.screwdriver.idm.service.IAuthenticationService;
@@ -30,9 +31,9 @@ public class RepositoryAuthenticationService implements IAuthenticationService {
 
     @Override
     @Transactional
-    public String authenticate(String username, String password) throws Exception {
-        Account account = accountRepository.findByUsername(username);
-        if(!account.getPassword().equals(password)) {
+    public String authenticate(LoginCredentialsDTO credentials) throws Exception {
+        Account account = accountRepository.findByUsername(credentials.getUsername());
+        if(!account.getPassword().equals(credentials.getPassword())) {
             throw new UnauthorizedException();
         }
         AccountDTO accountDTO = dozerBeanMapper.map(account, AccountDTO.class);
