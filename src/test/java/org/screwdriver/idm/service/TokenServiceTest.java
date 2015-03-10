@@ -9,8 +9,6 @@ import org.screwdriver.idm.dto.AccountDTO;
 import org.screwdriver.idm.dto.TokenDTO;
 import org.screwdriver.idm.service.authentication.UnauthorizedException;
 
-import java.util.Base64;
-
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.*;
@@ -53,7 +51,7 @@ public class TokenServiceTest {
     @Test
     public void shouldReturnValidToken() throws Exception {
         String base64token = tokenService.generateToken(account);
-        String decodedToken = new String(Base64.getDecoder().decode(base64token));
+        String decodedToken = TokenService.decodeBase64(base64token);
         TokenDTO token = mapper.readValue(decodedToken, TokenDTO.class);
 
         assertEquals(ID, token.getAccount().getId());
@@ -86,7 +84,7 @@ public class TokenServiceTest {
         tokenDTO.setExpireTime(timestamp);
         tokenDTO.setMac(mac);
         String tokenJson = mapper.writeValueAsString(tokenDTO);
-        return new String(Base64.getEncoder().encode(tokenJson.getBytes()));
+        return TokenService.encodeBase64(new String(tokenJson.getBytes()));
     }
 
     private String getMac(String timeStamp) throws Exception{
