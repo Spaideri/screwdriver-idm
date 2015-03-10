@@ -1,0 +1,1 @@
+SET database sql syntax PGS true;
