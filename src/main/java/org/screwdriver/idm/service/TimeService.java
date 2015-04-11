@@ -18,4 +18,8 @@ public class TimeService {
         return timestamp.toDateTimeISO().toString();
     }
 
+    public DateTime now() {
+        return new DateTime();
+    }
+
 }

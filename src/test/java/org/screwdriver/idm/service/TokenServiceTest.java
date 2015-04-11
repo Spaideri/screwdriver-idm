@@ -2,6 +2,7 @@ package org.screwdriver.idm.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -46,6 +47,7 @@ public class TokenServiceTest {
         this.account.setId(ID);
         this.account.setUsername(USERNAME);
         when(timeService.getNewTokenTimestampISO()).thenReturn(TIMESTAMP);
+        when(timeService.now()).thenReturn(new DateTime(TIMESTAMP));
     }
 
     @Test

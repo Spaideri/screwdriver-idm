@@ -48,7 +48,8 @@ public class TokenService implements ITokenService {
             throw new UnauthorizedException();
         }
         DateTime expireTime = DateTime.parse(tokenDTO.getExpireTime());
-        if(expireTime.isBeforeNow()) {
+        DateTime now = timeService.now();
+        if(expireTime.isBefore(now)) {
             throw new UnauthorizedException();
         }
         return true;
